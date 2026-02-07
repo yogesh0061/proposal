@@ -129,12 +129,24 @@ const Index = () => {
             </div>
 
             {/* Question */}
-            <h1 
-              className="text-2xl md:text-3xl font-medium mb-8"
-              style={{ color: "#333" }}
-            >
-              manshi will you be my valentine?
-            </h1>
+            <div className="mb-8">
+              <h1 
+                className="text-3xl md:text-4xl font-serif italic mb-2"
+                style={{ 
+                  color: "#e91e63",
+                  fontFamily: "'Georgia', serif",
+                  textShadow: "1px 1px 2px rgba(233, 30, 99, 0.2)"
+                }}
+              >
+                Manshi,
+              </h1>
+              <p 
+                className="text-xl md:text-2xl font-medium"
+                style={{ color: "#555" }}
+              >
+                will you be my <span className="text-2xl md:text-3xl font-bold" style={{ color: "#e91e63" }}>Valentine</span>? 💕
+              </p>
+            </div>
 
             {/* Buttons */}
             <div className="flex flex-col items-center gap-4 min-h-[120px]">
