@@ -175,18 +175,70 @@ const Index = () => {
             </p>
           </>
         ) : (
-          <div className="py-8">
-            {/* Success Hearts Animation */}
-            <div className="text-6xl mb-6 animate-bounce">💕</div>
+          <div className="py-6 relative">
+            {/* Animated hearts ring */}
+            <div className="relative w-32 h-32 mx-auto mb-6">
+              <div className="absolute inset-0 animate-spin-slow">
+                {[...Array(8)].map((_, i) => (
+                  <span
+                    key={i}
+                    className="absolute text-2xl"
+                    style={{
+                      left: '50%',
+                      top: '50%',
+                      transform: `rotate(${i * 45}deg) translateY(-50px) translateX(-50%)`,
+                    }}
+                  >
+                    💗
+                  </span>
+                ))}
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-6xl animate-pulse">💕</span>
+              </div>
+            </div>
+
+            {/* Main celebration text */}
             <h1 
-              className="text-3xl md:text-4xl font-bold mb-4"
-              style={{ color: "#e91e63" }}
+              className="text-4xl md:text-5xl font-bold mb-3 animate-scale-in"
+              style={{ 
+                color: "#e91e63",
+                fontFamily: "'Georgia', serif",
+                textShadow: "2px 2px 4px rgba(233, 30, 99, 0.3)"
+              }}
             >
               Yay! 🎉
             </h1>
-            <p className="text-xl text-gray-600">
-              I knew you'd say yes, Manshi! ❤️
+            
+            <p 
+              className="text-xl md:text-2xl mb-4 font-medium animate-fade-in"
+              style={{ color: "#555", animationDelay: "0.3s" }}
+            >
+              I knew you'd say yes!
             </p>
+
+            {/* Special message */}
+            <div 
+              className="mt-6 p-4 rounded-2xl animate-fade-in"
+              style={{ 
+                backgroundColor: "#fff5f7",
+                border: "2px dashed #ffb6c1",
+                animationDelay: "0.6s"
+              }}
+            >
+              <p 
+                className="text-lg md:text-xl italic font-serif"
+                style={{ color: "#e91e63" }}
+              >
+                "You make my heart skip a beat, Manshi 💖"
+              </p>
+            </div>
+
+            {/* Decorative sparkles */}
+            <div className="absolute top-0 left-4 text-xl animate-twinkle">✨</div>
+            <div className="absolute top-8 right-4 text-xl animate-twinkle" style={{ animationDelay: "0.5s" }}>✨</div>
+            <div className="absolute bottom-8 left-8 text-xl animate-twinkle" style={{ animationDelay: "1s" }}>✨</div>
+            <div className="absolute bottom-4 right-8 text-xl animate-twinkle" style={{ animationDelay: "0.3s" }}>✨</div>
           </div>
         )}
       </div>
