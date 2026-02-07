@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const Index = () => {
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
@@ -31,9 +31,9 @@ const Index = () => {
       let newX = noPosition.x - Math.cos(angle) * escapeDistance;
       let newY = noPosition.y - Math.sin(angle) * escapeDistance;
 
-      // Keep button within container bounds
-      const maxX = (containerRect.width - buttonRect.width) / 2 - 20;
-      const maxY = 150;
+      // Keep button strictly within container bounds
+      const maxX = (containerRect.width - buttonRect.width) / 2 - 30;
+      const maxY = 40;
 
       newX = Math.max(-maxX, Math.min(maxX, newX));
       newY = Math.max(-maxY, Math.min(maxY, newY));
@@ -59,27 +59,42 @@ const Index = () => {
         {!showSuccess ? (
           <>
             {/* Cute Cat with Heart */}
-            <div className="mb-6 flex justify-center">
+            <div className="mb-8 flex justify-center">
               <div className="relative">
-                <svg width="100" height="100" viewBox="0 0 100 100">
+                <svg width="160" height="160" viewBox="0 0 100 100">
                   {/* Cat face */}
-                  <ellipse cx="50" cy="55" rx="35" ry="30" fill="#e8b87d" />
+                  <ellipse cx="50" cy="55" rx="35" ry="30" fill="#f5c890" />
                   {/* Left ear */}
-                  <polygon points="20,35 30,55 15,55" fill="#e8b87d" />
-                  <polygon points="22,38 28,50 18,50" fill="#f5d0a9" />
+                  <polygon points="18,30 32,55 12,52" fill="#f5c890" />
+                  <polygon points="20,34 28,48 16,46" fill="#ffb6c1" />
                   {/* Right ear */}
-                  <polygon points="80,35 70,55 85,55" fill="#e8b87d" />
-                  <polygon points="78,38 72,50 82,50" fill="#f5d0a9" />
-                  {/* Eyes */}
-                  <circle cx="38" cy="52" r="4" fill="#2d2d2d" />
-                  <circle cx="62" cy="52" r="4" fill="#2d2d2d" />
-                  {/* Nose */}
-                  <ellipse cx="50" cy="62" rx="4" ry="3" fill="#f8a5a5" />
-                  {/* Heart */}
+                  <polygon points="82,30 68,55 88,52" fill="#f5c890" />
+                  <polygon points="80,34 72,48 84,46" fill="#ffb6c1" />
+                  {/* Blush cheeks */}
+                  <ellipse cx="28" cy="60" rx="8" ry="5" fill="#ffb6c1" opacity="0.6" />
+                  <ellipse cx="72" cy="60" rx="8" ry="5" fill="#ffb6c1" opacity="0.6" />
+                  {/* Eyes - bigger and cuter */}
+                  <ellipse cx="38" cy="50" rx="6" ry="7" fill="#2d2d2d" />
+                  <ellipse cx="62" cy="50" rx="6" ry="7" fill="#2d2d2d" />
+                  {/* Eye shine */}
+                  <circle cx="40" cy="48" r="2" fill="white" />
+                  <circle cx="64" cy="48" r="2" fill="white" />
+                  {/* Cute nose */}
+                  <ellipse cx="50" cy="60" rx="4" ry="3" fill="#ff8fa3" />
+                  {/* Mouth */}
+                  <path d="M46,65 Q50,70 54,65" stroke="#2d2d2d" strokeWidth="1.5" fill="none" />
+                  {/* Whiskers */}
+                  <line x1="20" y1="58" x2="32" y2="60" stroke="#d4a574" strokeWidth="1" />
+                  <line x1="20" y1="64" x2="32" y2="64" stroke="#d4a574" strokeWidth="1" />
+                  <line x1="80" y1="58" x2="68" y2="60" stroke="#d4a574" strokeWidth="1" />
+                  <line x1="80" y1="64" x2="68" y2="64" stroke="#d4a574" strokeWidth="1" />
+                  {/* Heart - bigger and positioned nicely */}
                   <path 
-                    d="M75,25 C80,15 95,15 95,30 C95,40 80,50 75,55 C70,50 55,40 55,30 C55,15 70,15 75,25" 
+                    d="M78,20 C84,8 100,8 100,25 C100,38 82,52 78,58 C74,52 56,38 56,25 C56,8 72,8 78,20" 
                     fill="#e91e63"
                   />
+                  {/* Heart shine */}
+                  <ellipse cx="70" cy="22" rx="4" ry="3" fill="#ff6b9d" opacity="0.6" />
                 </svg>
               </div>
             </div>
@@ -104,7 +119,7 @@ const Index = () => {
               
               <button
                 ref={noButtonRef}
-                className="px-6 py-2 text-gray-700 font-medium transition-all duration-200"
+                className="px-6 py-2 rounded-full font-medium transition-all duration-200 border-2 border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200"
                 style={{
                   transform: `translate(${noPosition.x}px, ${noPosition.y}px)`,
                 }}
