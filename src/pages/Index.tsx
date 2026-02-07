@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 const Index = () => {
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [hearts, setHearts] = useState<{ id: number; x: number; y: number; delay: number }[]>([]);
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,14 +25,12 @@ const Index = () => {
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance < escapeRadius) {
-      // Calculate escape direction (opposite to cursor)
       const angle = Math.atan2(distanceY, distanceX);
       const escapeDistance = 80;
       
       let newX = noPosition.x - Math.cos(angle) * escapeDistance;
       let newY = noPosition.y - Math.sin(angle) * escapeDistance;
 
-      // Keep button strictly within container bounds
       const maxX = (containerRect.width - buttonRect.width) / 2 - 30;
       const maxY = 40;
 
@@ -42,24 +41,54 @@ const Index = () => {
     }
   };
 
+  const handleMouseLeave = () => {
+    if (!showSuccess) {
+      setNoPosition({ x: 0, y: 0 });
+    }
+  };
+
   const handleYesClick = () => {
     setShowSuccess(true);
+    // Generate celebration hearts
+    const newHearts = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 0.5,
+    }));
+    setHearts(newHearts);
   };
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative"
       style={{ backgroundColor: "#fce4ec" }}
-      onMouseMove={handleMouseMove}
     >
+      {/* Celebration hearts */}
+      {showSuccess && hearts.map((heart) => (
+        <div
+          key={heart.id}
+          className="absolute text-2xl animate-float-up pointer-events-none"
+          style={{
+            left: `${heart.x}%`,
+            top: `${heart.y}%`,
+            animationDelay: `${heart.delay}s`,
+          }}
+        >
+          {['💕', '❤️', '💖', '💗', '💓'][heart.id % 5]}
+        </div>
+      ))}
+      
       <div 
         ref={containerRef}
-        className="bg-white rounded-3xl shadow-xl p-8 md:p-12 text-center max-w-md w-full relative overflow-visible"
+        className="bg-white rounded-3xl shadow-xl p-8 md:p-12 text-center max-w-md w-full relative overflow-visible z-10"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
         {!showSuccess ? (
           <>
             {/* Cute Cat with Heart */}
-            <div className="mb-8 flex justify-center">
+            <div className="mb-8 flex justify-center animate-bounce-gentle">
               <div className="relative">
                 <svg width="160" height="160" viewBox="0 0 100 100">
                   {/* Cat face */}
